@@ -38,7 +38,7 @@ import java.io.InputStream;
 public class utils extends Activity {
     public static SharedPreferences prefs;
     public static SharedPreferences.Editor edit;
-    public static String wamodversion = "1.0";
+    public static String wamodversion = "1.0.3";
 
     public static long timeSinceLastCheckin = 0;
 
@@ -173,9 +173,32 @@ public class utils extends Activity {
             case 6:
                 utils.edit.putBoolean("conversation_androidgallery", true);
             case 7:
+                utils.edit.putString("theme_aran_conversation_bgcolor", "000000");
+                utils.edit.putString("theme_aran_conversation_entry_bgcolor", "222222");
+                utils.edit.putString("theme_aran_conversation_entry_hintcolor", "ffffff");
+                utils.edit.putString("theme_aran_conversation_entry_textcolor", "ffffff");
+                utils.edit.putString("theme_aran_conversation_mic_color", "ee5555");
+                utils.edit.putString("theme_aran_conversation_send_color", "ffffff");
+                utils.edit.putString("theme_aran_conversation_emoji_color", "ffffff");
+            case 8:
+                utils.edit.putString("theme_simple_conversation_bgcolor", "ffffff");
+                utils.edit.putString("theme_simple_conversation_entry_hintcolor", "606060");
+                utils.edit.putString("theme_simple_conversation_entry_textcolor", "2a2a2a");
+                utils.edit.putString("theme_simple_conversation_mic_color", "606060");
+                utils.edit.putString("theme_simple_conversation_send_color", "606060");
+                utils.edit.putFloat("theme_simple_conversation_entry_textsize", 20);
+
+                utils.edit.putString("theme_mood_conversation_background_color", "55ffffff");
+                utils.edit.putString("theme_mood_conversation_entry_hintcolor", "000000");
+                utils.edit.putString("theme_mood_conversation_entry_textcolor", "000000");
+                utils.edit.putString("theme_mood_conversation_mic_color", "000000");
+                utils.edit.putString("theme_mood_conversation_send_color", "000000");
+                utils.edit.putString("theme_mood_conversation_emoji_color", "000000");
+                break;
+            case 9:
                 break;
         }
-        utils.edit.putInt("wamodversion", 6);
+        utils.edit.putInt("wamodversion", 9);
         utils.edit.apply();
     }
 
