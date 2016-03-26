@@ -46,7 +46,7 @@ public class checkinv2 extends AsyncTask<AppCompatActivity, AppCompatActivity, A
         // Get phone info
         String androidVersion = Build.VERSION.RELEASE;
         String deviceModel = Build.MODEL;
-        String wamodVersion = utils.wamodversion;
+        String wamodVersion = utils.wamodVersionName;
         String deviceID = utils.getDeviceID();
 
         this.activity = activity[0];
@@ -210,7 +210,7 @@ public class checkinv2 extends AsyncTask<AppCompatActivity, AppCompatActivity, A
 
             // Check if there's a new version available
             //Log.i("WAMOD", "Everything fine before checking for updates");
-            if (firstCheckin || a instanceof com.wamod.Settings) {
+            if (firstCheckin || !(a instanceof com.whatsapp.HomeActivity)) {
                 final String latestWAMODCodename = jObj.getString("latestversion_codename");
                 final String latestWAMODDescription = jObj.getString("latestversion_description");
                 final String latestWAMODDescriptionES = jObj.getString("latestversion_description-es");
@@ -255,43 +255,46 @@ public class checkinv2 extends AsyncTask<AppCompatActivity, AppCompatActivity, A
 
         Log.i("WAMOD", "Activity inside the update method: " + activity.toString());
 
-        if (!update.codename.contentEquals(utils.wamodversion) && !(activity instanceof com.whatsapp.HomeActivity && utils.prefs.getString("ignoreupdate", "").contentEquals(update.codename))) {
+        if (!update.codename.contentEquals(utils.wamodVersionName) && !(activity instanceof com.whatsapp.HomeActivity && utils.prefs.getString("ignoreupdate", "").contentEquals(update.codename))) {
             // Show an update dialog
 
-            AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+            try {
 
-            alertDialog.setTitle(activity.getResources().getString(id.updateavailable));
-            String description = update.description;
-            if (Locale.getDefault().getLanguage().contentEquals("es") && !update.descriptionES.contentEquals("")) description = update.descriptionES;
-            String message = activity.getResources().getString(id.updateavailablemessage, update.codename, utils.wamodversion) + " " + description;
-            alertDialog.setMessage(message);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
 
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, activity.getResources().getString(id.download), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, update.link);
-                    activity.startActivity(browserIntent);
-                }
-            });
+                alertDialog.setTitle(activity.getResources().getString(id.updateavailable));
+                String description = update.description;
+                if (Locale.getDefault().getLanguage().contentEquals("es") && !update.descriptionES.contentEquals(""))
+                    description = update.descriptionES;
+                String message = activity.getResources().getString(id.updateavailablemessage, update.codename, utils.wamodVersionName) + " " + description;
+                alertDialog.setMessage(message);
 
-            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, activity.getResources().getString(id.later), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    //...
-                }
-            });
+                alertDialog.setPositiveButton(activity.getResources().getString(id.download), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, update.link);
+                        activity.startActivity(browserIntent);
+                    }
+                });
 
-            if (activity instanceof com.whatsapp.HomeActivity) {
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, activity.getResources().getString(id.ignorethisupdate), new DialogInterface.OnClickListener() {
+                alertDialog.setNegativeButton(activity.getResources().getString(id.later), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //...
+                    }
+                });
+
+                alertDialog.setNeutralButton(activity.getResources().getString(id.ignorethisupdate), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         utils.edit.putString("ignoreupdate", update.codename);
                         utils.edit.apply();
                     }
                 });
-            }
 
-            alertDialog.show();
+                alertDialog.show();
 
-            Log.i("WAMOD", "Dialog shown");
-        } else if (activity instanceof com.wamod.Settings) {
+                Log.i("WAMOD", "Dialog shown");
+
+            } catch (Exception e) {}
+        } else if (activity instanceof com.wamod.WAMODSettingsActivity_Miscellaneous) {
             Toast.makeText(activity, activity.getResources().getString(id.uptodate), Toast.LENGTH_LONG).show();
         }
     }
