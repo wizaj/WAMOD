@@ -90,10 +90,10 @@ public class conversationStyleEntryWAMOD {
         });
 
 
-        gallery.setOnLongClickListener(new ay4(activity));
-        audio.setOnClickListener(new zo(activity));
-        location.setOnClickListener(new x3(activity));
-        contact.setOnClickListener(new gw(activity));
-        camera.setOnClickListener(new ask(activity, true));
+        gallery.setOnLongClickListener(new no(activity));
+        audio.setOnClickListener(new a8s(activity));
+        location.setOnClickListener(new aqy(activity));
+        contact.setOnClickListener(new ajg(activity));
+        camera.setOnClickListener(new aec(activity, true));
     }
 }

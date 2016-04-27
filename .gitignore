@@ -1,0 +1,8 @@
+smali/*
+build/*
+.idea/*
+.gradle/*
+AndroidStudioProject.iml
+WAMOD.iml
+local.properties
+*.smali
