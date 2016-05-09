@@ -12,9 +12,9 @@ import com.whatsapp.Conversation;
 public class Events {
     public static class VoiceNoteManager {
         agq VoiceNote;
-        VoiceNoteManager(Conversation conversation) {
+        public VoiceNoteManager(Conversation conversation) {
             VoiceNote = new agg(conversation, conversation, conversation);
-            VoiceNote.a(conversation.aa);
+            VoiceNote.a(conversation.a8);
         }
         public void StartRecording() {
             VoiceNote.c();
@@ -30,7 +30,7 @@ public class Events {
     public static class AttachmentsManager {
         Conversation conversation;
         Button btn;
-        AttachmentsManager(Conversation conversation) {
+        public AttachmentsManager(Conversation conversation) {
             this.conversation = conversation;
             this.btn = new Button(conversation);
         }
@@ -44,7 +44,7 @@ public class Events {
             btn.performClick();
         }
         private void attachPhotoUsingAndroidGallery() {
-            conversation.U(conversation);
+            conversation.ac(conversation);
         }
         private void attachPhotoUsingStockGallery() {
             performClick(new fz(conversation));
